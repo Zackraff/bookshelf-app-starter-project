@@ -5,7 +5,10 @@ let books = [];
 const loadBooksFromStorage = () => {
   const storedBooks = localStorage.getItem("books");
   if (storedBooks) {
-    books = JSON.parse(storedBooks);
+    books = JSON.parse(storedBooks).map((book) => ({
+      ...book,
+      year: parseInt(book.year, 10), //TODO Perbaikan saya terkait properti year yg seharusnya number
+    }));
     renderBooks();
   }
 };
@@ -21,7 +24,7 @@ const addBook = (title, author, year, isComplete) => {
     id: Date.now().toString(),
     title,
     author,
-    year,
+    year: parseInt(year, 10), //TODO Perbaikan saya terkait properti year yg seharusnya number
     isComplete,
   };
   books.push(newBook);
